@@ -1,0 +1,91 @@
+﻿@model GSExam.Models.FormModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    var result1 = Model.resultyear1;
+    var result2 = Model.resultyear2;
+    var totkil1 = Model.totalkilled1;
+    var totkil2 = Model.totalkilled2;
+    var avg = Model.averagedata;
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<form asp-action="Calculate" method="post">
+    <div class="container">
+       
+        <div class="row">
+            <div class="col-sm">
+                <label>Input age of death person A</label>
+                <input asp-for="ageofdeath1" class="form-control" onkeypress="return allowOnlyNumber(event);" />
+            </div>
+            <div class="col-sm">
+                <label>Input year of death person A</label>
+                <input asp-for="yearofdeath1" class="form-control" onkeypress="return allowOnlyNumber(event);" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label>Input age of death person B</label>
+                <input asp-for="ageofdeath2" class="form-control" onkeypress="return allowOnlyNumber(event);" />
+            </div>
+            <div class="col-sm">
+                <label>Input year of death person B</label>
+                <input asp-for="yearofdeath2" class="form-control" onkeypress="return allowOnlyNumber(event);" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label>year death Person A</label>
+                <input asp-for="resultyear1" class="form-control" onkeypress="return allowOnlyNumber(event);" readonly />
+            </div>
+            <div class="col-sm">
+                <label>year death Person B</label>
+                <input asp-for="resultyear2" class="form-control" onkeypress="return allowOnlyNumber(event);" readonly />
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-sm">
+                <label>Total killed on year death Person A</label>
+                <input asp-for="totalkilled1" class="form-control" onkeypress="return allowOnlyNumber(event);" readonly />
+            </div>
+            <div class="col-sm">
+                <label>Total killed on year death Person B</label>
+                <input asp-for="totalkilled2" class="form-control" onkeypress="return allowOnlyNumber(event);" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label>Average Killed Person</label>
+                <input asp-for="averagedata" class="form-control" onkeypress="return allowOnlyNumber(event);" readonly />
+            </div>
+            <div class="col-sm">
+                <br />
+                <input type="submit" value="Calculate" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+<script>
+        $(document).ready(function () {
+            $("#resultyear1").val('@result1');
+            $("#resultyear2").val('@result2');
+            $("#averagedata").val('@avg');
+            $("#totalkilled1").val('@totkil1');
+            $("#totalkilled2").val('@totkil2');
+
+        });
+        function allowOnlyNumber(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+</script>
+}
